@@ -4,6 +4,7 @@ This GitHub repo is used to deploy multiple features of the Bike to the Kubernet
 
 ## Types of Bikes
 
+<details><summary>Bumble Bee Specs</summary>
 ### Bike - Bumblebee
 
  - bike-frame
@@ -20,3 +21,4 @@ This GitHub repo is used to deploy multiple features of the Bike to the Kubernet
     - [ ] black
  - bike-login
  - bike-frontend
+ </details>
