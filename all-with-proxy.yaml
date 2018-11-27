@@ -1,0 +1,822 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: bike-frame
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/status: '{"version":"ebf16d3ea0236e4b5cb4d3fc0f01da62e2e6265d005e58f8f6bd43a4fb672fdd","initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["istio-envoy","istio-certs"],"imagePullSecrets":null}'
+      creationTimestamp: null
+      labels:
+        app: bike-frame
+        version: bike-frame-v1
+    spec:
+      containers:
+      - image: quay.io/deployhub/bike-frame:latest
+        imagePullPolicy: Always
+        name: bike-frame-v1
+        ports:
+        - containerPort: 80
+          name: http
+        resources: {}
+      - args:
+        - proxy
+        - sidecar
+        - --configPath
+        - /etc/istio/proxy
+        - --binaryPath
+        - /usr/local/bin/envoy
+        - --serviceCluster
+        - bike-frame
+        - --drainDuration
+        - 45s
+        - --parentShutdownDuration
+        - 1m0s
+        - --discoveryAddress
+        - istio-pilot.istio-system:15007
+        - --discoveryRefreshDelay
+        - 1s
+        - --zipkinAddress
+        - zipkin.istio-system:9411
+        - --connectTimeout
+        - 10s
+        - --proxyAdminPort
+        - "15000"
+        - --controlPlaneAuthPolicy
+        - NONE
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: ISTIO_META_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: ISTIO_META_INTERCEPTION_MODE
+          value: REDIRECT
+        - name: ISTIO_METAJSON_LABELS
+          value: |
+            {"app":"bike-frame","version":"bike-frame-v1"}
+        image: docker.io/istio/proxyv2:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-proxy
+        ports:
+        - containerPort: 15090
+          name: http-envoy-prom
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 10m
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsUser: 1337
+        volumeMounts:
+        - mountPath: /etc/istio/proxy
+          name: istio-envoy
+        - mountPath: /etc/certs/
+          name: istio-certs
+          readOnly: true
+      initContainers:
+      - args:
+        - -p
+        - "15001"
+        - -u
+        - "1337"
+        - -m
+        - REDIRECT
+        - -i
+        - '*'
+        - -x
+        - ""
+        - -b
+        - "80"
+        - -d
+        - ""
+        image: docker.io/istio/proxy_init:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-init
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: true
+      volumes:
+      - emptyDir:
+          medium: Memory
+        name: istio-envoy
+      - name: istio-certs
+        secret:
+          optional: true
+          secretName: istio.default
+status: {}
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: bike-front-wheel
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/status: '{"version":"ebf16d3ea0236e4b5cb4d3fc0f01da62e2e6265d005e58f8f6bd43a4fb672fdd","initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["istio-envoy","istio-certs"],"imagePullSecrets":null}'
+      creationTimestamp: null
+      labels:
+        app: bike-front-wheel
+        version: bike-front-wheel-v1
+    spec:
+      containers:
+      - image: quay.io/deployhub/bike-front-wheel:latest
+        imagePullPolicy: Always
+        name: bike-front-wheel-v1
+        ports:
+        - containerPort: 80
+          name: http
+        resources: {}
+      - args:
+        - proxy
+        - sidecar
+        - --configPath
+        - /etc/istio/proxy
+        - --binaryPath
+        - /usr/local/bin/envoy
+        - --serviceCluster
+        - bike-front-wheel
+        - --drainDuration
+        - 45s
+        - --parentShutdownDuration
+        - 1m0s
+        - --discoveryAddress
+        - istio-pilot.istio-system:15007
+        - --discoveryRefreshDelay
+        - 1s
+        - --zipkinAddress
+        - zipkin.istio-system:9411
+        - --connectTimeout
+        - 10s
+        - --proxyAdminPort
+        - "15000"
+        - --controlPlaneAuthPolicy
+        - NONE
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: ISTIO_META_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: ISTIO_META_INTERCEPTION_MODE
+          value: REDIRECT
+        - name: ISTIO_METAJSON_LABELS
+          value: |
+            {"app":"bike-front-wheel","version":"bike-front-wheel-v1"}
+        image: docker.io/istio/proxyv2:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-proxy
+        ports:
+        - containerPort: 15090
+          name: http-envoy-prom
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 10m
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsUser: 1337
+        volumeMounts:
+        - mountPath: /etc/istio/proxy
+          name: istio-envoy
+        - mountPath: /etc/certs/
+          name: istio-certs
+          readOnly: true
+      initContainers:
+      - args:
+        - -p
+        - "15001"
+        - -u
+        - "1337"
+        - -m
+        - REDIRECT
+        - -i
+        - '*'
+        - -x
+        - ""
+        - -b
+        - "80"
+        - -d
+        - ""
+        image: docker.io/istio/proxy_init:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-init
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: true
+      volumes:
+      - emptyDir:
+          medium: Memory
+        name: istio-envoy
+      - name: istio-certs
+        secret:
+          optional: true
+          secretName: istio.default
+status: {}
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: bike-frontend
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/status: '{"version":"ebf16d3ea0236e4b5cb4d3fc0f01da62e2e6265d005e58f8f6bd43a4fb672fdd","initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["istio-envoy","istio-certs"],"imagePullSecrets":null}'
+      creationTimestamp: null
+      labels:
+        app: bike-frontend
+        version: bike-frontend-v1
+    spec:
+      containers:
+      - image: quay.io/deployhub/bike-frontend:latest
+        imagePullPolicy: Always
+        name: bike-frontend-v1
+        ports:
+        - containerPort: 80
+          name: http
+        resources: {}
+      - args:
+        - proxy
+        - sidecar
+        - --configPath
+        - /etc/istio/proxy
+        - --binaryPath
+        - /usr/local/bin/envoy
+        - --serviceCluster
+        - bike-frontend
+        - --drainDuration
+        - 45s
+        - --parentShutdownDuration
+        - 1m0s
+        - --discoveryAddress
+        - istio-pilot.istio-system:15007
+        - --discoveryRefreshDelay
+        - 1s
+        - --zipkinAddress
+        - zipkin.istio-system:9411
+        - --connectTimeout
+        - 10s
+        - --proxyAdminPort
+        - "15000"
+        - --controlPlaneAuthPolicy
+        - NONE
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: ISTIO_META_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: ISTIO_META_INTERCEPTION_MODE
+          value: REDIRECT
+        - name: ISTIO_METAJSON_LABELS
+          value: |
+            {"app":"bike-frontend","version":"bike-frontend-v1"}
+        image: docker.io/istio/proxyv2:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-proxy
+        ports:
+        - containerPort: 15090
+          name: http-envoy-prom
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 10m
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsUser: 1337
+        volumeMounts:
+        - mountPath: /etc/istio/proxy
+          name: istio-envoy
+        - mountPath: /etc/certs/
+          name: istio-certs
+          readOnly: true
+      initContainers:
+      - args:
+        - -p
+        - "15001"
+        - -u
+        - "1337"
+        - -m
+        - REDIRECT
+        - -i
+        - '*'
+        - -x
+        - ""
+        - -b
+        - "80"
+        - -d
+        - ""
+        image: docker.io/istio/proxy_init:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-init
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: true
+      volumes:
+      - emptyDir:
+          medium: Memory
+        name: istio-envoy
+      - name: istio-certs
+        secret:
+          optional: true
+          secretName: istio.default
+status: {}
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: bike-login
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/status: '{"version":"ebf16d3ea0236e4b5cb4d3fc0f01da62e2e6265d005e58f8f6bd43a4fb672fdd","initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["istio-envoy","istio-certs"],"imagePullSecrets":null}'
+      creationTimestamp: null
+      labels:
+        app: bike-login
+        version: bike-login-v1
+    spec:
+      containers:
+      - image: quay.io/deployhub/bike-login:latest
+        imagePullPolicy: Always
+        name: bike-login-v1
+        ports:
+        - containerPort: 80
+          name: http
+        resources: {}
+      - args:
+        - proxy
+        - sidecar
+        - --configPath
+        - /etc/istio/proxy
+        - --binaryPath
+        - /usr/local/bin/envoy
+        - --serviceCluster
+        - bike-login
+        - --drainDuration
+        - 45s
+        - --parentShutdownDuration
+        - 1m0s
+        - --discoveryAddress
+        - istio-pilot.istio-system:15007
+        - --discoveryRefreshDelay
+        - 1s
+        - --zipkinAddress
+        - zipkin.istio-system:9411
+        - --connectTimeout
+        - 10s
+        - --proxyAdminPort
+        - "15000"
+        - --controlPlaneAuthPolicy
+        - NONE
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: ISTIO_META_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: ISTIO_META_INTERCEPTION_MODE
+          value: REDIRECT
+        - name: ISTIO_METAJSON_LABELS
+          value: |
+            {"app":"bike-login","version":"bike-login-v1"}
+        image: docker.io/istio/proxyv2:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-proxy
+        ports:
+        - containerPort: 15090
+          name: http-envoy-prom
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 10m
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsUser: 1337
+        volumeMounts:
+        - mountPath: /etc/istio/proxy
+          name: istio-envoy
+        - mountPath: /etc/certs/
+          name: istio-certs
+          readOnly: true
+      initContainers:
+      - args:
+        - -p
+        - "15001"
+        - -u
+        - "1337"
+        - -m
+        - REDIRECT
+        - -i
+        - '*'
+        - -x
+        - ""
+        - -b
+        - "80"
+        - -d
+        - ""
+        image: docker.io/istio/proxy_init:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-init
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: true
+      volumes:
+      - emptyDir:
+          medium: Memory
+        name: istio-envoy
+      - name: istio-certs
+        secret:
+          optional: true
+          secretName: istio.default
+status: {}
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: bike-rear-wheel
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/status: '{"version":"ebf16d3ea0236e4b5cb4d3fc0f01da62e2e6265d005e58f8f6bd43a4fb672fdd","initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["istio-envoy","istio-certs"],"imagePullSecrets":null}'
+      creationTimestamp: null
+      labels:
+        app: bike-rear-wheel
+        version: bike-rear-wheel-v1
+    spec:
+      containers:
+      - image: quay.io/deployhub/bike-rear-wheel:latest
+        imagePullPolicy: Always
+        name: bike-rear-wheel-v1
+        ports:
+        - containerPort: 80
+          name: http
+        resources: {}
+      - args:
+        - proxy
+        - sidecar
+        - --configPath
+        - /etc/istio/proxy
+        - --binaryPath
+        - /usr/local/bin/envoy
+        - --serviceCluster
+        - bike-rear-wheel
+        - --drainDuration
+        - 45s
+        - --parentShutdownDuration
+        - 1m0s
+        - --discoveryAddress
+        - istio-pilot.istio-system:15007
+        - --discoveryRefreshDelay
+        - 1s
+        - --zipkinAddress
+        - zipkin.istio-system:9411
+        - --connectTimeout
+        - 10s
+        - --proxyAdminPort
+        - "15000"
+        - --controlPlaneAuthPolicy
+        - NONE
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: ISTIO_META_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: ISTIO_META_INTERCEPTION_MODE
+          value: REDIRECT
+        - name: ISTIO_METAJSON_LABELS
+          value: |
+            {"app":"bike-rear-wheel","version":"bike-rear-wheel-v1"}
+        image: docker.io/istio/proxyv2:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-proxy
+        ports:
+        - containerPort: 15090
+          name: http-envoy-prom
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 10m
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsUser: 1337
+        volumeMounts:
+        - mountPath: /etc/istio/proxy
+          name: istio-envoy
+        - mountPath: /etc/certs/
+          name: istio-certs
+          readOnly: true
+      initContainers:
+      - args:
+        - -p
+        - "15001"
+        - -u
+        - "1337"
+        - -m
+        - REDIRECT
+        - -i
+        - '*'
+        - -x
+        - ""
+        - -b
+        - "80"
+        - -d
+        - ""
+        image: docker.io/istio/proxy_init:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-init
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: true
+      volumes:
+      - emptyDir:
+          medium: Memory
+        name: istio-envoy
+      - name: istio-certs
+        secret:
+          optional: true
+          secretName: istio.default
+status: {}
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: bike-seat
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/status: '{"version":"ebf16d3ea0236e4b5cb4d3fc0f01da62e2e6265d005e58f8f6bd43a4fb672fdd","initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["istio-envoy","istio-certs"],"imagePullSecrets":null}'
+      creationTimestamp: null
+      labels:
+        app: bike-seat
+        version: bike-seat-v1
+    spec:
+      containers:
+      - image: quay.io/deployhub/bike-seat:latest
+        imagePullPolicy: Always
+        name: bike-seat-v1
+        ports:
+        - containerPort: 80
+          name: http
+        resources: {}
+      - args:
+        - proxy
+        - sidecar
+        - --configPath
+        - /etc/istio/proxy
+        - --binaryPath
+        - /usr/local/bin/envoy
+        - --serviceCluster
+        - bike-seat
+        - --drainDuration
+        - 45s
+        - --parentShutdownDuration
+        - 1m0s
+        - --discoveryAddress
+        - istio-pilot.istio-system:15007
+        - --discoveryRefreshDelay
+        - 1s
+        - --zipkinAddress
+        - zipkin.istio-system:9411
+        - --connectTimeout
+        - 10s
+        - --proxyAdminPort
+        - "15000"
+        - --controlPlaneAuthPolicy
+        - NONE
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: ISTIO_META_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: ISTIO_META_INTERCEPTION_MODE
+          value: REDIRECT
+        - name: ISTIO_METAJSON_LABELS
+          value: |
+            {"app":"bike-seat","version":"bike-seat-v1"}
+        image: docker.io/istio/proxyv2:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-proxy
+        ports:
+        - containerPort: 15090
+          name: http-envoy-prom
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 10m
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsUser: 1337
+        volumeMounts:
+        - mountPath: /etc/istio/proxy
+          name: istio-envoy
+        - mountPath: /etc/certs/
+          name: istio-certs
+          readOnly: true
+      initContainers:
+      - args:
+        - -p
+        - "15001"
+        - -u
+        - "1337"
+        - -m
+        - REDIRECT
+        - -i
+        - '*'
+        - -x
+        - ""
+        - -b
+        - "80"
+        - -d
+        - ""
+        image: docker.io/istio/proxy_init:1.0.4
+        imagePullPolicy: IfNotPresent
+        name: istio-init
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: true
+      volumes:
+      - emptyDir:
+          medium: Memory
+        name: istio-envoy
+      - name: istio-certs
+        secret:
+          optional: true
+          secretName: istio.default
+status: {}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bike-frame
+spec:
+  selector:
+    app: bike-frame
+  ports:
+    - name: http
+      port: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bike-front-wheel
+spec:
+  selector:
+    app: bike-front-wheel
+  ports:
+    - name: http
+      port: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bike-frontend
+spec:
+  selector:
+    app: bike-frontend
+  ports:
+    - name: http
+      port: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bike-login
+spec:
+  selector:
+    app: bike-login
+  ports:
+    - name: http
+      port: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bike-rear-wheel
+spec:
+  selector:
+    app: bike-rear-wheel
+  ports:
+    - name: http
+      port: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bike-seat
+spec:
+  selector:
+    app: bike-seat
+  ports:
+    - name: http
+      port: 80
+---

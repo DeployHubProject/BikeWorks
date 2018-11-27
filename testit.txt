@@ -1,0 +1,67 @@
+Warning: Setting custom HTTP method to HEAD with -X/--request may not work the 
+Warning: way you want. Consider using -I/--head instead.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 54.243.118.145...
+* TCP_NODELAY set
+* Connected to quay.io (54.243.118.145) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
+* successfully set certificate verify locations:
+*   CAfile: /etc/ssl/cert.pem
+  CApath: none
+* TLSv1.2 (OUT), TLS handshake, Client hello (1):
+} [213 bytes data]
+* TLSv1.2 (IN), TLS handshake, Server hello (2):
+{ [98 bytes data]
+* TLSv1.2 (IN), TLS handshake, Certificate (11):
+{ [4702 bytes data]
+* TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+{ [333 bytes data]
+* TLSv1.2 (IN), TLS handshake, Server finished (14):
+{ [4 bytes data]
+* TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+} [70 bytes data]
+* TLSv1.2 (OUT), TLS change cipher, Client hello (1):
+} [1 bytes data]
+* TLSv1.2 (OUT), TLS handshake, Finished (20):
+} [16 bytes data]
+* TLSv1.2 (IN), TLS change cipher, Client hello (1):
+{ [1 bytes data]
+* TLSv1.2 (IN), TLS handshake, Finished (20):
+{ [16 bytes data]
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES128-GCM-SHA256
+* ALPN, server accepted to use h2
+* Server certificate:
+*  subject: OU=Domain Control Validated; OU=EssentialSSL Wildcard; CN=*.quay.io
+*  start date: Aug 30 00:00:00 2018 GMT
+*  expire date: Aug 29 23:59:59 2020 GMT
+*  issuer: C=GB; ST=Greater Manchester; L=Salford; O=COMODO CA Limited; CN=COMODO RSA Domain Validation Secure Server CA
+*  SSL certificate verify ok.
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+* Using Stream ID: 1 (easy handle 0x7f9cee008c00)
+> HEAD /v2/deployhub/bike-frontend/manifests/latest HTTP/2
+> Host: quay.io
+> User-Agent: curl/7.54.0
+> Accept: application/vnd.docker.distribution.manifest.v2+json
+> 
+* Connection state changed (MAX_CONCURRENT_STREAMS updated)!
+< HTTP/2 200 
+< server: nginx/1.14.0
+< date: Sun, 25 Nov 2018 19:33:26 GMT
+< content-type: application/vnd.docker.distribution.manifest.v1+prettyjws
+< content-length: 14903
+< docker-content-digest: sha256:e249fb9e80a96aa6423f2f94bf64c9f7bc1176af8bb4e0ea7973e0fcf55a0217
+< x-frame-options: DENY
+< strict-transport-security: max-age=63072000; preload
+< 
+{ [0 bytes data]
+* transfer closed with 14903 bytes remaining to read
+  0 14903    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* Closing connection 0
+* TLSv1.2 (OUT), TLS alert, Client hello (1):
+} [2 bytes data]
+curl: (18) transfer closed with 14903 bytes remaining to read

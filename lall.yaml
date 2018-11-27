@@ -1,0 +1,106 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: dh-ms-general
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: dh-ms-general
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: dh-ms-general
+          image: sbtaylor15/deployhub-general:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: dh-ms-ui
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: dh-ms-ui
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: dh-ms-ui
+          image: sbtaylor15/deployhub-ui:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: dh-ms-nginx
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: dh-ms-nginx
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+        - name: dh-ms-nginx
+          image: sbtaylor15/deployhub-nginx:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+---
+apiVersion: apps/v1beta1
+kind: Service
+apiVersion: v1
+metadata:
+  name: dh-ms-general
+spec:
+  selector:
+    app: dh-ms-general
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: NodePort
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: dh-ms-ui
+spec:
+  selector:
+    app: dh-ms-ui
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: NodePort
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: dh-ms-nginx
+spec:
+  selector:
+    app: dh-ms-nginx
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
