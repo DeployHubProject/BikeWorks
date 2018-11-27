@@ -8,15 +8,15 @@ This GitHub repo is used to deploy multiple features of the Bike to the Kubernet
 
  - bike-frame
     - [x] yellow
-    - [] black
+    - [ ] black
  - bike-seat
     - [x] yellow
-    - [] black
+    - [ ] black
  - bike-front-wheel
     - [x] yellow
-    - [] black
+    - [ ] black
  - bike-rear-wheel
     - [x] yellow
-    - [] black
+    - [ ] black
  - bike-login
  - bike-frontend
