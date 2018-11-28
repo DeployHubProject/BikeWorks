@@ -20,32 +20,6 @@
     bike-front-wheel = "yellow"
     bike-read-wheel  = "yellow"
 
-[Bike.Wasp]
-    bike-login       = "base"
-    bike-frontend    = "base"    
-    bike-frame       = "yellow"
-    bike-seat        = "black"
-    bike-front-wheel = "yellow"
-    bike-read-wheel  = "yellow"
-
-[Bike."Yellow Jacket"]
-    bike-login       = "base"
-    bike-frontend    = "base"    
-    bike-frame       = "black"
-    bike-seat        = "black"
-    bike-front-wheel = "yellow"
-    bike-read-wheel  = "yellow" 
-
-[Bike."Green Hornet"]
-    bike-login       = "base"
-    bike-frontend    = "base"    
-    bike-frame       = "green"
-    bike-seat        = "green"
-    bike-front-wheel = "black"
-    bike-read-wheel  = "black"   
-
 [Feature]
-  "Bumblebee"     = ["sally"]
-  "Wasp"          = ["bob"]
-  "Yellow Jacket" = ["sue"]
-  "Green Hornet"  = ["joe"]   
+  "Bumblebee"     = ["sally","bob","sue","joe"]
+
