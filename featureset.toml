@@ -11,7 +11,6 @@
 #   .
 #   Component-N = Version (feature flag)
 
-[Bike]
 [Bike.Bumblebee]
     bike-login       = "base"
     bike-frontend    = "base"    
@@ -20,6 +19,6 @@
     bike-front-wheel = "yellow"
     bike-read-wheel  = "yellow"
 
-[Feature]
+[FeatureUsers]
   "Bumblebee"     = ["sally","bob","sue","joe"]
 
