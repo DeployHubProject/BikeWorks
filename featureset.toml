@@ -19,6 +19,6 @@
     bike-front-wheel = "yellow"
     bike-read-wheel  = "yellow"
 
-[FeatureUsers]
+["Feature to Users"]
   "Bumblebee"     = ["sally","bob","sue","joe"]
 
