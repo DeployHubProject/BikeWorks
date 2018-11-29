@@ -11,7 +11,7 @@
 #   .
 #   Component-N = Version (feature flag)
 
-
+[Bike]
 [Bike.Bumblebee]
     bike-login       = "base"
     bike-frontend    = "base"    

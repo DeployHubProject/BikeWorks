@@ -9,6 +9,8 @@ import subprocess
 import threading
 import urllib
 import shutil
+import toml
+from requests.auth import HTTPBasicAuth
 from flask import Flask, jsonify, request, abort, make_response
 from flask_cors import CORS
 from pprint import pprint
@@ -16,6 +18,8 @@ from pprint import pprint
 app = Flask(__name__)
 app.config.from_object(__name__)
 CORS(app)
+
+cookies = dict(p1="stella", p2="Littlebear01")
 
 def tagit(docker_sha, docker_repo, gitcommit, org, repo):
    print("### Tagging Github Repo ###")  
@@ -70,17 +74,20 @@ def updatecomponent():
    org  = repo.split('/')[3]
    repo  = repo.split('/')[4]
    buildid = data['build_id']
+   buildurl = data['homepage']
+   tag = data['docker_tags'][0]
 
    print(docker_sha)
    print(docker_repo)
    print(gitcommit)
    print(org)
    print(repo)
+   print(tag)
 
    print("### Creating new component Version ###")  
 
-   url = "https://console.deployhub.com/dmadminweb/API/component/" + repo + "?user=stella&pass=Littlebear01"
-   r = requests.get(url)
+   url = "https://console.deployhub.com/dmadminweb/API/component/" + repo
+   r = requests.get(url, cookies=cookies)
    data = r.json()
    vers = data['result']['versions']
 
@@ -88,15 +95,16 @@ def updatecomponent():
     parent = vers[-1]['name']
    else:
     parent = repo 
-   
-   url = "https://console.deployhub.com/dmadminweb/API/new/compver/" + parent + "?user=stella&pass=Littlebear01"
-   r = requests.get(url)
+
+   if (";" + tag not in parent):
+    url = "https://console.deployhub.com/dmadminweb/API/new/compver/" + parent 
+    r = requests.get(url, cookies=cookies)
+    data = r.json()
+
+   url = "https://console.deployhub.com/dmadminweb/API/component/" + repo 
+   r = requests.get(url, cookies=cookies)
    data = r.json()
    pprint(data)
-
-   url = "https://console.deployhub.com/dmadminweb/API/component/" + repo + "?user=stella&pass=Littlebear01"
-   r = requests.get(url)
-   data = r.json()
 
    vers = data['result']['versions']
    pprint(vers)
@@ -111,23 +119,28 @@ def updatecomponent():
    pprint(newver)
    pprint(parent)
    if (newver == parent):
-    print("ERROR: Creating new version")
-    return
+    print("Updating existing version " + newver)
 
-   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?user=stella&pass=Littlebear01&name=DockerSha&value=" + urllib.parse.quote(docker_sha[:13])
-   r = requests.get(url)
+   url = "https://console.deployhub.com/dmadminweb/UpdateSummaryData?objtype=23&id=" + str(id) + "&change_1=" + urllib.parse.quote(repo + ";" + tag) 
+   r = requests.get(url, cookies=cookies)
+
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=DockerSha&value=" + urllib.parse.quote(docker_sha[:13])
+   r = requests.get(url, cookies=cookies)
  
-   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?user=stella&pass=Littlebear01&name=DockerRepo&value=" + urllib.parse.quote(docker_repo) 
-   r = requests.get(url)
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=DockerRepo&value=" + urllib.parse.quote(docker_repo) 
+   r = requests.get(url, cookies=cookies)
 
-   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?user=stella&pass=Littlebear01&name=GithubRepo&value=" + urllib.parse.quote(org + "/" + repo) 
-   r = requests.get(url)
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=GithubRepo&value=" + urllib.parse.quote(org + "/" + repo) 
+   r = requests.get(url, cookies=cookies)
 
-   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?user=stella&pass=Littlebear01&name=GitCommit&value=" + urllib.parse.quote(gitcommit) 
-   r = requests.get(url)
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=GitCommit&value=" + urllib.parse.quote(gitcommit) 
+   r = requests.get(url, cookies=cookies)
 
-   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?user=stella&pass=Littlebear01&name=BuildId&value=" + urllib.parse.quote(buildid) 
-   r = requests.get(url)
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=BuildId&value=" + urllib.parse.quote(buildid) 
+   r = requests.get(url, cookies=cookies)
+
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=BuildUrl&value=" + urllib.parse.quote(buildurl) 
+   r = requests.get(url, cookies=cookies)
 
    t = threading.Thread(target=tagit, args=[docker_sha, docker_repo, gitcommit, org, repo])  
    t.start()
@@ -136,6 +149,28 @@ def updatecomponent():
    response_object = []
    return jsonify(response_object)
 
+@app.route('/updateapp', methods=['POST'])
+def updateapp():
+   print("### Grabbing featureset.toml ###")  
+ 
+   headers =  {'Accept' : 'application/vnd.github.v3.raw'}
+   url = 'https://raw.githubusercontent.com/DeployHubProject/BikeWorks/master/featureset.toml'
+   r = requests.get(url, headers=headers, auth=('sbtaylor15', 'G0p!1966'))
+   data = toml.loads(r.text)
+   pprint(data)
+   print("#########")
+
+   for app in data.keys():
+     print(app)
+     for feature in data[app].keys():
+      print(feature)
+      comps = data[app][feature]
+
+      for comp in comps.keys():
+         print(comp + "=" + comps[comp])
+
+   response_object = []
+   return jsonify(response_object)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
