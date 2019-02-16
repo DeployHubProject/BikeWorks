@@ -20,7 +20,7 @@
     bike-frame       = "yellow"
     bike-seat        = "black"
     bike-front-wheel = "yellow"
-    bike-read-wheel  = "yellow"
+    bike-rear-wheel  = "yellow"
 
 [Bike."Yellow Jacket"]
     bike-login       = "master"
@@ -28,7 +28,7 @@
     bike-frame       = "black"
     bike-seat        = "black"
     bike-front-wheel = "yellow"
-    bike-read-wheel  = "yellow" 
+    bike-rear-wheel  = "yellow" 
 
 [Bike."Green Hornet"]
     bike-login       = "master"
@@ -36,4 +36,4 @@
     bike-frame       = "green"
     bike-seat        = "green"
     bike-front-wheel = "black"
-    bike-read-wheel  = "black"   
+    bike-rear-wheel  = "black"   
