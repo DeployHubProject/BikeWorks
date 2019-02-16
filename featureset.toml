@@ -37,10 +37,3 @@
     bike-seat        = "green"
     bike-front-wheel = "black"
     bike-read-wheel  = "black"   
-
-[Feature]
-  "Bumblebee"     = ["sally"]
-  "Wasp"          = ["bob"]
-  "Yellow Jacket" = ["sue"]
-  "Green Hornet"  = ["joe"]   
-
