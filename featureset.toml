@@ -15,24 +15,24 @@
   "Bumblebee"     = ["sally","bob","sue","joe"]
 
 [Bike.Wasp]
-    bike-login       = "base"
-    bike-frontend    = "base"    
+    bike-login       = "master"
+    bike-frontend    = "master"    
     bike-frame       = "yellow"
     bike-seat        = "black"
     bike-front-wheel = "yellow"
     bike-read-wheel  = "yellow"
 
 [Bike."Yellow Jacket"]
-    bike-login       = "base"
-    bike-frontend    = "base"    
+    bike-login       = "master"
+    bike-frontend    = "master"    
     bike-frame       = "black"
     bike-seat        = "black"
     bike-front-wheel = "yellow"
     bike-read-wheel  = "yellow" 
 
 [Bike."Green Hornet"]
-    bike-login       = "base"
-    bike-frontend    = "base"    
+    bike-login       = "master"
+    bike-frontend    = "master"    
     bike-frame       = "green"
     bike-seat        = "green"
     bike-front-wheel = "black"
