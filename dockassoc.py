@@ -124,10 +124,10 @@ def updatecomponent():
    url = "https://console.deployhub.com/dmadminweb/UpdateSummaryData?objtype=23&id=" + str(id) + "&change_1=" + urllib.parse.quote(repo + ";" + tag) 
    r = requests.get(url, cookies=cookies)
 
-   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=DockerSha&value=" + urllib.parse.quote(docker_sha[:13])
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=image.tag&value=" + urllib.parse.quote(docker_sha[:13])
    r = requests.get(url, cookies=cookies)
  
-   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=DockerRepo&value=" + urllib.parse.quote(docker_repo) 
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=image.repository&value=" + urllib.parse.quote(docker_repo) 
    r = requests.get(url, cookies=cookies)
 
    url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=GithubRepo&value=" + urllib.parse.quote(org + "/" + repo) 
@@ -142,8 +142,23 @@ def updatecomponent():
    url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=BuildUrl&value=" + urllib.parse.quote(buildurl) 
    r = requests.get(url, cookies=cookies)
 
-   t = threading.Thread(target=tagit, args=[docker_sha, docker_repo, gitcommit, org, repo])  
-   t.start()
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=image.tag&value=" + urllib.parse.quote(tag) 
+   r = requests.get(url, cookies=cookies)
+
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=GitTag&value=" + urllib.parse.quote(tag) 
+   r = requests.get(url, cookies=cookies)
+
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=GitDir&value=" + urllib.parse.quote(".") 
+   r = requests.get(url, cookies=cookies)
+
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=GitUrl&value=" + urllib.parse.quote("git@github.com:" + org + "/" + repo + ".git")
+   r = requests.get(url, cookies=cookies)
+
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=Chart&value=" + urllib.parse.quote("chart/" + repo)
+   r = requests.get(url, cookies=cookies)
+
+ #  t = threading.Thread(target=tagit, args=[docker_sha, docker_repo, gitcommit, org, repo])  
+ #  t.start()
 #   tagit(docker_sha, docker_repo, gitcommit, org, repo)
 
    response_object = []
@@ -151,6 +166,14 @@ def updatecomponent():
 
 @app.route('/updateapp', methods=['POST'])
 def updateapp():
+
+   url = "https://console.deployhub.com/dmadminweb/API/components?all=y" 
+   r = requests.get(url, cookies=cookies)
+   data = r.json()
+   complist = {}
+   for comp in data['result']:
+      complist[comp['name']] = comp['id']
+
    print("### Grabbing featureset.toml ###")  
  
    headers =  {'Accept' : 'application/vnd.github.v3.raw'}
@@ -160,15 +183,33 @@ def updateapp():
    pprint(data)
    print("#########")
 
+   Feature2User = data['Feature to Users']
+   del data['Feature to Users']
+
+   pprint(complist)
+
+   print("#########")
+
    for app in data.keys():
-     print(app)
+#     print(app)
      for feature in data[app].keys():
-      print(feature)
+#     print(feature)
       comps = data[app][feature]
-
+      
+      appready = 0
       for comp in comps.keys():
-         print(comp + "=" + comps[comp])
+         compver = comp + ";" + comps[comp]
 
+         if (compver in complist):
+            appready = appready + 1
+            print("Found=" + compver)
+
+      print("r=" + str(appready) + "," + str(len(comps)))
+      if (appready == len(comps)):
+         appready = 0
+         print("Need to Create App Version for " + app)
+
+   pprint(Feature2User)
    response_object = []
    return jsonify(response_object)
 
