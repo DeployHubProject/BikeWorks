@@ -1,0 +1,67 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: bike-frame
+spec:
+  host: bike-frame
+  subsets:
+  - name: version-1
+    labels:
+      version: yellow
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: bike-front-wheel
+spec:
+  host: bike-front-wheel
+  subsets:
+  - name: version-1
+    labels:
+      version: yellow
+---             
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: bike-rear-wheel
+spec:
+  host: bike-rear-wheel
+  subsets:
+  - name: version-1
+    labels:
+      version: yellow
+--- 
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: bike-seat
+spec:
+  host: bike-seat
+  subsets:
+  - name: version-1
+    labels:
+      version: black
+--- 
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: bike-login
+spec:
+  host: bike-login
+  subsets:
+  - name: version-1
+    labels:
+      version: master
+--- 
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: bike-frontend
+spec:
+  host: bike-frontend
+  subsets:
+  - name: version-1
+    labels:
+      version: master
+--- 

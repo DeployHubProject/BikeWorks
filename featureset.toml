@@ -12,13 +12,14 @@
 #   Component-N = Version (feature flag)
 
 ["Feature to Users"]
-  "Bumblebee"     = ["sally","bob","sue","joe"]
+   "BumbleBee"     = ["sally","bob"]
+   "Yellow Jacket" = ["sue","joe"]
 
-[Bike.Wasp]
+[Bike."BumbleBee"]
     bike-login       = "master"
     bike-frontend    = "master"    
     bike-frame       = "yellow"
-    bike-seat        = "black"
+    bike-seat        = "yellow"
     bike-front-wheel = "yellow"
     bike-rear-wheel  = "yellow"
 

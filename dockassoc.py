@@ -67,9 +67,9 @@ def updatecomponent():
    docker_sha = data['manifest_digests'][0]
    parts = docker_sha.split('@')
    docker_repo = parts[0]
-   docker_sha  = parts[1][7:][:13]
+   docker_sha  = parts[1][7:][:7]
 
-   gitcommit  = data['trigger_metadata']['commit']
+   gitcommit  = data['trigger_metadata']['commit'][:7]
    repo   = data['trigger_metadata']['commit_info']['url']
    org  = repo.split('/')[3]
    repo  = repo.split('/')[4]
@@ -91,12 +91,12 @@ def updatecomponent():
    data = r.json()
    vers = data['result']['versions']
 
-   if (len(vers) >= 1):
-    parent = vers[-1]['name']
-   else:
-    parent = repo 
+   parent = repo 
+   for v in vers:
+     if (repo + ";" + tag == v['name']):
+       parent = repo + ";" + tag 
 
-   if (";" + tag not in parent):
+   if (repo + ";" + tag != parent):
     url = "https://console.deployhub.com/dmadminweb/API/new/compver/" + parent 
     r = requests.get(url, cookies=cookies)
     data = r.json()
@@ -104,27 +104,25 @@ def updatecomponent():
    url = "https://console.deployhub.com/dmadminweb/API/component/" + repo 
    r = requests.get(url, cookies=cookies)
    data = r.json()
-   pprint(data)
 
    vers = data['result']['versions']
-   pprint(vers)
-   print(len(vers))
+
    id = 0
    if (len(vers) >= 1):
     newver = vers[-1]['name']
     id = vers[-1]['id']
-   else:
-    newver = repo 
 
-   pprint(newver)
-   pprint(parent)
+   for v in vers:
+     if (repo + ";" + tag == v['name']):
+       id = v['id'] 
+
    if (newver == parent):
     print("Updating existing version " + newver)
 
    url = "https://console.deployhub.com/dmadminweb/UpdateSummaryData?objtype=23&id=" + str(id) + "&change_1=" + urllib.parse.quote(repo + ";" + tag) 
    r = requests.get(url, cookies=cookies)
 
-   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=image.tag&value=" + urllib.parse.quote(docker_sha[:13])
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=image.tag&value=" + urllib.parse.quote(tag)
    r = requests.get(url, cookies=cookies)
  
    url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=image.repository&value=" + urllib.parse.quote(docker_repo) 
@@ -142,7 +140,13 @@ def updatecomponent():
    url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=BuildUrl&value=" + urllib.parse.quote(buildurl) 
    r = requests.get(url, cookies=cookies)
 
-   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=image.tag&value=" + urllib.parse.quote(tag) 
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=image.pullPolicy&value=Always"
+   r = requests.get(url, cookies=cookies)
+
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=image.version&value=" + urllib.parse.quote(tag) 
+   r = requests.get(url, cookies=cookies)
+
+   url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=DockerSha&value=" + urllib.parse.quote(docker_sha) 
    r = requests.get(url, cookies=cookies)
 
    url = "https://console.deployhub.com/dmadminweb/API/setvar/component/" + str(id) + "?name=GitTag&value=" + urllib.parse.quote(tag) 
@@ -196,20 +200,88 @@ def updateapp():
 #     print(feature)
       comps = data[app][feature]
       
-      appready = 0
+      compmatch = []
       for comp in comps.keys():
          compver = comp + ";" + comps[comp]
 
          if (compver in complist):
-            appready = appready + 1
-            print("Found=" + compver)
+            compmatch.append(complist[compver])
 
-      print("r=" + str(appready) + "," + str(len(comps)))
-      if (appready == len(comps)):
-         appready = 0
-         print("Need to Create App Version for " + app)
+      if (len(compmatch) == len(comps) and len(compmatch) > 0):
+         print("Components ready creating App Version for " + app + ";" + feature)
+
+         url = "https://console.deployhub.com/dmadminweb/API/application/" + urllib.parse.quote(app + ";" + feature)
+         r = requests.get(url, cookies=cookies)
+         d = r.json()
+
+         vers = d['result']['versions']
+
+         if (len(vers) >= 1):
+            parent = vers[-1]['name']
+         else:
+            parent = app
+  
+         if (";" + feature not in parent):
+            url = "https://console.deployhub.com/dmadminweb/API/new/appver/" + parent 
+            r = requests.get(url, cookies=cookies)
+            d2 = r.json()
+
+         url = "https://console.deployhub.com/dmadminweb/API/application/" + app 
+         r = requests.get(url, cookies=cookies)
+         d2 = r.json()
+         pprint(d2)
+
+         vers = d2['result']['versions']
+
+         id = 0
+         if (len(vers) >= 1):
+            newver = vers[-1]['name']
+            id = vers[-1]['id']
+         else:
+            newver = app + ";" + feature
+
+         pprint(newver)
+         pprint(parent)
+         if (newver == parent):
+            print("Updating existing version " + newver)
+
+         url = "https://console.deployhub.com/dmadminweb/UpdateSummaryData?objtype=17&id=" + str(id) + "&change_1=" + urllib.parse.quote(app + ";" + feature) 
+         r = requests.get(url, cookies=cookies)
+
+         compvers = d2['result']['components']
+         for comp in compvers:
+            url = "https://console.deployhub.com/dmadminweb/UpdateAttrs?f=acd&a=" +  str(id) + "&c=" + str(comp['id'])
+            r = requests.get(url, cookies=cookies)
+
+         lastid = 0
+         ypos = 100
+         for compid in compmatch:
+            url = "https://console.deployhub.com/dmadminweb/UpdateAttrs?f=acvm&a=" +  str(id) + "&c=" + str(compid) + "&ypos=" + str(ypos) + "&xpos=100"
+            r = requests.get(url, cookies=cookies)
+
+            url = "https://console.deployhub.com/dmadminweb/UpdateAttrs?f=cal&a=" +  str(id) + "&fn=" + str(lastid) + "&tn=" + str(compid)
+            r = requests.get(url, cookies=cookies)
+            lastid = compid
+            ypos = ypos + 100
+
+         compmatch = []
+
+         url = "https://console.deployhub.com/dmadminweb/API/environment/" + urllib.parse.quote("GLOBAL.Chasing Horses LLC.BikeWorks.My Pipeline.Development.Dev")
+         r = requests.get(url, cookies=cookies)
+         d2 = r.json()
+         envid = d2['result']['id']
+
+         url = "https://console.deployhub.com/dmadminweb/API/deploy/" +  str(id) + "/" + str(envid)
+         r = requests.get(url, cookies=cookies)
 
    pprint(Feature2User)
+   
+   for feature in Feature2User:
+      users = Feature2User[feature]
+      for user in users:
+         url = "http://bikeworks.gotdns.com/features/" + urllib.parse.quote(feature) + "/" +  urllib.parse.quote(user)
+         r = requests.get(url)
+
    response_object = []
    return jsonify(response_object)
 

@@ -75,7 +75,7 @@ spec:
   subsets:
   - name: version-1
     labels:
-      version: bike-frame-v1
+      version: yellow
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -86,7 +86,7 @@ spec:
   subsets:
   - name: version-1
     labels:
-      version: bike-front-wheel-v1
+      version: yellow
 ---             
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -97,7 +97,7 @@ spec:
   subsets:
   - name: version-1
     labels:
-      version: bike-rear-wheel-v1
+      version: yellow
 --- 
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -108,7 +108,10 @@ spec:
   subsets:
   - name: version-1
     labels:
-      version: bike-seat-v1
+      version: black
+  - name: version-2
+    labels:
+      version: yellow    
 --- 
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -119,7 +122,7 @@ spec:
   subsets:
   - name: version-1
     labels:
-      version: bike-login-v1
+      version: master
 --- 
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -130,5 +133,5 @@ spec:
   subsets:
   - name: version-1
     labels:
-      version: bike-frontend-v1
+      version: master
 --- 
