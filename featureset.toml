@@ -26,7 +26,7 @@
 [Bike."Yellow Jacket"]
     bike-login       = "master"
     bike-frontend    = "master"    
-    bike-frame       = "black"
+    bike-frame       = "yellow"
     bike-seat        = "black"
     bike-front-wheel = "yellow"
     bike-rear-wheel  = "yellow" 

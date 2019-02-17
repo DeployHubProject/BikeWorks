@@ -279,6 +279,7 @@ def updateapp():
    for feature in Feature2User:
       users = Feature2User[feature]
       for user in users:
+         print("Setting feature \"" + feature + "\" for user " + user)
          url = "http://bikeworks.gotdns.com/features/" + urllib.parse.quote(feature) + "/" +  urllib.parse.quote(user)
          r = requests.get(url)
 
