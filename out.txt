@@ -1,0 +1,1609 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container bike-frame"
+        },
+        "creationTimestamp": "2019-02-18T00:11:22Z",
+        "generateName": "bike-frame-yellow-8566f56c8d-",
+        "labels": {
+          "app": "bike-frame",
+          "pod-template-hash": "4122912748",
+          "version": "yellow"
+        },
+        "name": "bike-frame-yellow-8566f56c8d-k4gfx",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "bike-frame-yellow-8566f56c8d",
+            "uid": "b90e260d-3311-11e9-9998-42010a800013"
+          }
+        ],
+        "resourceVersion": "644602",
+        "selfLink": "/api/v1/namespaces/default/pods/bike-frame-yellow-8566f56c8d-k4gfx",
+        "uid": "b912ee86-3311-11e9-9998-42010a800013"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "quay.io/deployhub/bike-frame:yellow",
+            "imagePullPolicy": "Always",
+            "name": "bike-frame",
+            "ports": [
+              {
+                "containerPort": 80,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "gke-istio-cluster-3-default-pool-6676f3c9-bxpb",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-tbfnw",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-tbfnw"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:11:22Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:11:34Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:11:22Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://846b9fac76f2184d4dea9c7229811346e90de37cae6bed5d0a6ee0a06cc6d216",
+            "image": "quay.io/deployhub/bike-frame:yellow",
+            "imageID": "docker-pullable://quay.io/deployhub/bike-frame@sha256:0077399aaa6100ba58502f60af4a5ae2f2360905a1dad135a576300f457fc0b3",
+            "lastState": {},
+            "name": "bike-frame",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-18T00:11:33Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.38",
+        "phase": "Running",
+        "podIP": "10.16.0.20",
+        "qosClass": "Burstable",
+        "startTime": "2019-02-18T00:11:22Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container bike-front-wheel"
+        },
+        "creationTimestamp": "2019-02-18T00:11:49Z",
+        "generateName": "bike-front-wheel-yellow-56bfb8976d-",
+        "labels": {
+          "app": "bike-front-wheel",
+          "pod-template-hash": "1269645328",
+          "version": "yellow"
+        },
+        "name": "bike-front-wheel-yellow-56bfb8976d-bvt2t",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "bike-front-wheel-yellow-56bfb8976d",
+            "uid": "c8f978bd-3311-11e9-9998-42010a800013"
+          }
+        ],
+        "resourceVersion": "644714",
+        "selfLink": "/api/v1/namespaces/default/pods/bike-front-wheel-yellow-56bfb8976d-bvt2t",
+        "uid": "c8fdc253-3311-11e9-9998-42010a800013"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "quay.io/deployhub/bike-front-wheel:yellow",
+            "imagePullPolicy": "Always",
+            "name": "bike-front-wheel",
+            "ports": [
+              {
+                "containerPort": 80,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "gke-istio-cluster-3-default-pool-6676f3c9-9vg3",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-tbfnw",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-tbfnw"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:11:49Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:12:00Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:11:49Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://c94a1dc6d6f0a504695bccbbfdabc17f2f711b403d16107e2b471c1bebed3965",
+            "image": "quay.io/deployhub/bike-front-wheel:yellow",
+            "imageID": "docker-pullable://quay.io/deployhub/bike-front-wheel@sha256:632163914d686668057e955f61366b522da402ea8cdd8d3716d617e31447b89a",
+            "lastState": {},
+            "name": "bike-front-wheel",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-18T00:11:59Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.41",
+        "phase": "Running",
+        "podIP": "10.16.2.10",
+        "qosClass": "Burstable",
+        "startTime": "2019-02-18T00:11:49Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container bike-frontend"
+        },
+        "creationTimestamp": "2019-02-18T00:11:12Z",
+        "generateName": "bike-frontend-master-79445bd5c-",
+        "labels": {
+          "app": "bike-frontend",
+          "pod-template-hash": "350016817",
+          "version": "master"
+        },
+        "name": "bike-frontend-master-79445bd5c-pbg6s",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "bike-frontend-master-79445bd5c",
+            "uid": "b2fa0f72-3311-11e9-9998-42010a800013"
+          }
+        ],
+        "resourceVersion": "644560",
+        "selfLink": "/api/v1/namespaces/default/pods/bike-frontend-master-79445bd5c-pbg6s",
+        "uid": "b2fd9bf9-3311-11e9-9998-42010a800013"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "quay.io/deployhub/bike-frontend:master",
+            "imagePullPolicy": "Always",
+            "name": "bike-frontend",
+            "ports": [
+              {
+                "containerPort": 80,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "gke-istio-cluster-3-default-pool-6676f3c9-bxpb",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-tbfnw",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-tbfnw"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:11:12Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:11:24Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:11:12Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://a1ad6a7fb5f1377a3646583763f660559554738a924d201ced2b855f25485047",
+            "image": "quay.io/deployhub/bike-frontend:master",
+            "imageID": "docker-pullable://quay.io/deployhub/bike-frontend@sha256:91fc1aa92cb4a1c5b507e60e16ed8e1b1e3d4bb7d9c3a9a1acc584d3ed93ca1a",
+            "lastState": {},
+            "name": "bike-frontend",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-18T00:11:23Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.38",
+        "phase": "Running",
+        "podIP": "10.16.0.19",
+        "qosClass": "Burstable",
+        "startTime": "2019-02-18T00:11:12Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container bike-login"
+        },
+        "creationTimestamp": "2019-02-18T00:10:35Z",
+        "generateName": "bike-login-master-5d66d46876-",
+        "labels": {
+          "app": "bike-login",
+          "dockersha": "da3ded4",
+          "gitcommit": "4ae7133",
+          "pod-template-hash": "1822802432",
+          "version": "master"
+        },
+        "name": "bike-login-master-5d66d46876-6q8tl",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "bike-login-master-5d66d46876",
+            "uid": "9d01bd74-3311-11e9-9998-42010a800013"
+          }
+        ],
+        "resourceVersion": "644404",
+        "selfLink": "/api/v1/namespaces/default/pods/bike-login-master-5d66d46876-6q8tl",
+        "uid": "9d069267-3311-11e9-9998-42010a800013"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "quay.io/deployhub/bike-login:master",
+            "imagePullPolicy": "Always",
+            "name": "bike-login",
+            "ports": [
+              {
+                "containerPort": 80,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "gke-istio-cluster-3-default-pool-6676f3c9-ndxd",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-tbfnw",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-tbfnw"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:10:35Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:10:44Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:10:35Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://499ee67c67d46a43dbee4e568630d108efb09190a989830dd6985fd5dd549603",
+            "image": "quay.io/deployhub/bike-login:master",
+            "imageID": "docker-pullable://quay.io/deployhub/bike-login@sha256:da3ded4b01b2b1a2f4e5b9363db75f14a30267c1b0c977303f77b1827d16a61d",
+            "lastState": {},
+            "name": "bike-login",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-18T00:10:43Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.40",
+        "phase": "Running",
+        "podIP": "10.16.3.21",
+        "qosClass": "Burstable",
+        "startTime": "2019-02-18T00:10:35Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container bike-rear-wheel"
+        },
+        "creationTimestamp": "2019-02-18T00:12:04Z",
+        "generateName": "bike-rear-wheel-yellow-556f95c9cc-",
+        "labels": {
+          "app": "bike-rear-wheel",
+          "pod-template-hash": "1129517577",
+          "version": "yellow"
+        },
+        "name": "bike-rear-wheel-yellow-556f95c9cc-lkcbz",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "bike-rear-wheel-yellow-556f95c9cc",
+            "uid": "d1f55a3b-3311-11e9-9998-42010a800013"
+          }
+        ],
+        "resourceVersion": "644772",
+        "selfLink": "/api/v1/namespaces/default/pods/bike-rear-wheel-yellow-556f95c9cc-lkcbz",
+        "uid": "d1f6e972-3311-11e9-9998-42010a800013"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "quay.io/deployhub/bike-rear-wheel:yellow",
+            "imagePullPolicy": "Always",
+            "name": "bike-rear-wheel",
+            "ports": [
+              {
+                "containerPort": 80,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "gke-istio-cluster-3-default-pool-6676f3c9-ndxd",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-tbfnw",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-tbfnw"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:12:04Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:12:12Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-18T00:12:04Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://36cd82010035c0604685e1d7cd533a2ab657fef9da56c76a3f61ccd1acb3d57a",
+            "image": "quay.io/deployhub/bike-rear-wheel:yellow",
+            "imageID": "docker-pullable://quay.io/deployhub/bike-rear-wheel@sha256:f993a00856f211bad085c5391ca3aedb1655e4366a8e03e2687f6547fcff20a4",
+            "lastState": {},
+            "name": "bike-rear-wheel",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-18T00:12:12Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.40",
+        "phase": "Running",
+        "podIP": "10.16.3.22",
+        "qosClass": "Burstable",
+        "startTime": "2019-02-18T00:12:04Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container bike-seat"
+        },
+        "creationTimestamp": "2019-02-17T20:47:08Z",
+        "generateName": "bike-seat-black-5bb4456f96-",
+        "labels": {
+          "app": "bike-seat",
+          "pod-template-hash": "1660012952",
+          "version": "black"
+        },
+        "name": "bike-seat-black-5bb4456f96-8pwz6",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "bike-seat-black-5bb4456f96",
+            "uid": "05ec50ba-32eb-11e9-9998-42010a800013"
+          }
+        ],
+        "resourceVersion": "609844",
+        "selfLink": "/api/v1/namespaces/default/pods/bike-seat-black-5bb4456f96-8pwz6",
+        "uid": "30f860ca-32f5-11e9-9998-42010a800013"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "quay.io/deployhub/bike-seat:black",
+            "imagePullPolicy": "Always",
+            "name": "bike-seat",
+            "ports": [
+              {
+                "containerPort": 80,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "gke-istio-cluster-3-default-pool-6676f3c9-bxpb",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-tbfnw",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-tbfnw"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T20:47:08Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T20:47:17Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T20:47:08Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://b0c8972c39e3e4347bd82f5ad8689f3545fb44f8f312b7440eb03ffcb9c6ac69",
+            "image": "quay.io/deployhub/bike-seat:black",
+            "imageID": "docker-pullable://quay.io/deployhub/bike-seat@sha256:93f4e033420843b6e7e9a62383cfc77571e978346d72fb79e329e901a1b6480e",
+            "lastState": {},
+            "name": "bike-seat",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-17T20:47:16Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.38",
+        "phase": "Running",
+        "podIP": "10.16.0.15",
+        "qosClass": "Burstable",
+        "startTime": "2019-02-17T20:47:08Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container bike-seat"
+        },
+        "creationTimestamp": "2019-02-17T20:50:45Z",
+        "generateName": "bike-seat-yellow-78c7c46988-",
+        "labels": {
+          "app": "bike-seat",
+          "pod-template-hash": "3473702544",
+          "version": "yellow"
+        },
+        "name": "bike-seat-yellow-78c7c46988-p5wff",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "bike-seat-yellow-78c7c46988",
+            "uid": "b295ba9d-32f5-11e9-9998-42010a800013"
+          }
+        ],
+        "resourceVersion": "610475",
+        "selfLink": "/api/v1/namespaces/default/pods/bike-seat-yellow-78c7c46988-p5wff",
+        "uid": "b29a0c06-32f5-11e9-9998-42010a800013"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "quay.io/deployhub/bike-seat:yellow",
+            "imagePullPolicy": "Always",
+            "name": "bike-seat",
+            "ports": [
+              {
+                "containerPort": 80,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "gke-istio-cluster-3-default-pool-6676f3c9-9vg3",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-tbfnw",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-tbfnw"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T20:50:45Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T20:50:53Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T20:50:45Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://015230e4cfbf294a453136a07e8ed92b2bb5067e57f2604f7adf33be37c51e54",
+            "image": "quay.io/deployhub/bike-seat:yellow",
+            "imageID": "docker-pullable://quay.io/deployhub/bike-seat@sha256:a75a7235aaa9e384cd738c6ae7d3d772954a3cf7dffe667dffbc14a137ba9517",
+            "lastState": {},
+            "name": "bike-seat",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-17T20:50:52Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.41",
+        "phase": "Running",
+        "podIP": "10.16.2.9",
+        "qosClass": "Burstable",
+        "startTime": "2019-02-17T20:50:45Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container mongo; cpu request for container mongo-sidecar"
+        },
+        "creationTimestamp": "2019-02-16T00:19:40Z",
+        "generateName": "mongo-",
+        "labels": {
+          "controller-revision-hash": "mongo-7877f465c5",
+          "environment": "test",
+          "role": "mongo",
+          "statefulset.kubernetes.io/pod-name": "mongo-0"
+        },
+        "name": "mongo-0",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "StatefulSet",
+            "name": "mongo",
+            "uid": "4854ab6a-30a8-11e9-bbc5-42010a800070"
+          }
+        ],
+        "resourceVersion": "566982",
+        "selfLink": "/api/v1/namespaces/default/pods/mongo-0",
+        "uid": "8d423de4-3180-11e9-8452-42010a800057"
+      },
+      "spec": {
+        "containers": [
+          {
+            "command": [
+              "mongod",
+              "--replSet",
+              "rs0",
+              "--smallfiles",
+              "--noprealloc",
+              "--bind_ip_all"
+            ],
+            "image": "mongo",
+            "imagePullPolicy": "Always",
+            "name": "mongo",
+            "ports": [
+              {
+                "containerPort": 27017,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/data/db",
+                "name": "mongo-persistent-storage"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          },
+          {
+            "env": [
+              {
+                "name": "MONGO_SIDECAR_POD_LABELS",
+                "value": "role=mongo,environment=test"
+              }
+            ],
+            "image": "cvallance/mongo-k8s-sidecar",
+            "imagePullPolicy": "Always",
+            "name": "mongo-sidecar",
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "hostname": "mongo-0",
+        "nodeName": "gke-istio-cluster-3-default-pool-6676f3c9-lhfs",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "subdomain": "mongo",
+        "terminationGracePeriodSeconds": 10,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "mongo-persistent-storage",
+            "persistentVolumeClaim": {
+              "claimName": "mongo-persistent-storage-mongo-0"
+            }
+          },
+          {
+            "name": "default-token-tbfnw",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-tbfnw"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T16:35:59Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T16:38:44Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T16:35:56Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://0a79f15e22a4e80fcfc28fa1abc79b1cafc8224400279f5b8f0771d447add84b",
+            "image": "mongo:latest",
+            "imageID": "docker-pullable://mongo@sha256:7fc5a3a5545f91f79c18fc07ab2f793e9761c69ce79cea857f29f17747d4cfcc",
+            "lastState": {},
+            "name": "mongo",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-17T16:38:30Z"
+              }
+            }
+          },
+          {
+            "containerID": "docker://70f4584a4c73f05a70934bad9d99ec27a55f405b8fc7cd7e84eb477224899434",
+            "image": "cvallance/mongo-k8s-sidecar:latest",
+            "imageID": "docker-pullable://cvallance/mongo-k8s-sidecar@sha256:cd62d32db488fbf78dfbaef020edd7fc09ee4d3fe5d50cc0579e747e8232c77f",
+            "lastState": {},
+            "name": "mongo-sidecar",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-17T16:38:42Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.39",
+        "phase": "Running",
+        "podIP": "10.16.1.27",
+        "qosClass": "Burstable",
+        "startTime": "2019-02-17T16:35:59Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container mongo; cpu request for container mongo-sidecar"
+        },
+        "creationTimestamp": "2019-02-17T16:38:44Z",
+        "generateName": "mongo-",
+        "labels": {
+          "controller-revision-hash": "mongo-7877f465c5",
+          "environment": "test",
+          "role": "mongo",
+          "statefulset.kubernetes.io/pod-name": "mongo-1"
+        },
+        "name": "mongo-1",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "StatefulSet",
+            "name": "mongo",
+            "uid": "4854ab6a-30a8-11e9-bbc5-42010a800070"
+          }
+        ],
+        "resourceVersion": "567095",
+        "selfLink": "/api/v1/namespaces/default/pods/mongo-1",
+        "uid": "7de3961b-32d2-11e9-9998-42010a800013"
+      },
+      "spec": {
+        "containers": [
+          {
+            "command": [
+              "mongod",
+              "--replSet",
+              "rs0",
+              "--smallfiles",
+              "--noprealloc",
+              "--bind_ip_all"
+            ],
+            "image": "mongo",
+            "imagePullPolicy": "Always",
+            "name": "mongo",
+            "ports": [
+              {
+                "containerPort": 27017,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/data/db",
+                "name": "mongo-persistent-storage"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          },
+          {
+            "env": [
+              {
+                "name": "MONGO_SIDECAR_POD_LABELS",
+                "value": "role=mongo,environment=test"
+              }
+            ],
+            "image": "cvallance/mongo-k8s-sidecar",
+            "imagePullPolicy": "Always",
+            "name": "mongo-sidecar",
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "hostname": "mongo-1",
+        "nodeName": "gke-istio-cluster-3-default-pool-6676f3c9-ndxd",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "subdomain": "mongo",
+        "terminationGracePeriodSeconds": 10,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "mongo-persistent-storage",
+            "persistentVolumeClaim": {
+              "claimName": "mongo-persistent-storage-mongo-1"
+            }
+          },
+          {
+            "name": "default-token-tbfnw",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-tbfnw"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T16:38:44Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T16:39:15Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T16:38:44Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://b5e9e472a6236573c64550d9b99b3d621d4948c623689d27f0369bf45e861478",
+            "image": "mongo:latest",
+            "imageID": "docker-pullable://mongo@sha256:7fc5a3a5545f91f79c18fc07ab2f793e9761c69ce79cea857f29f17747d4cfcc",
+            "lastState": {},
+            "name": "mongo",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-17T16:39:09Z"
+              }
+            }
+          },
+          {
+            "containerID": "docker://01acec3da33b211f4a11836dbfc2bb591d9d9a51cc240c7c6ba44b9ba4ddd47e",
+            "image": "cvallance/mongo-k8s-sidecar:latest",
+            "imageID": "docker-pullable://cvallance/mongo-k8s-sidecar@sha256:cd62d32db488fbf78dfbaef020edd7fc09ee4d3fe5d50cc0579e747e8232c77f",
+            "lastState": {},
+            "name": "mongo-sidecar",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-17T16:39:15Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.40",
+        "phase": "Running",
+        "podIP": "10.16.3.3",
+        "qosClass": "Burstable",
+        "startTime": "2019-02-17T16:38:44Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container mongo; cpu request for container mongo-sidecar"
+        },
+        "creationTimestamp": "2019-02-17T16:39:16Z",
+        "generateName": "mongo-",
+        "labels": {
+          "controller-revision-hash": "mongo-7877f465c5",
+          "environment": "test",
+          "role": "mongo",
+          "statefulset.kubernetes.io/pod-name": "mongo-2"
+        },
+        "name": "mongo-2",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "StatefulSet",
+            "name": "mongo",
+            "uid": "4854ab6a-30a8-11e9-bbc5-42010a800070"
+          }
+        ],
+        "resourceVersion": "567215",
+        "selfLink": "/api/v1/namespaces/default/pods/mongo-2",
+        "uid": "9089fb80-32d2-11e9-9998-42010a800013"
+      },
+      "spec": {
+        "containers": [
+          {
+            "command": [
+              "mongod",
+              "--replSet",
+              "rs0",
+              "--smallfiles",
+              "--noprealloc",
+              "--bind_ip_all"
+            ],
+            "image": "mongo",
+            "imagePullPolicy": "Always",
+            "name": "mongo",
+            "ports": [
+              {
+                "containerPort": 27017,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/data/db",
+                "name": "mongo-persistent-storage"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          },
+          {
+            "env": [
+              {
+                "name": "MONGO_SIDECAR_POD_LABELS",
+                "value": "role=mongo,environment=test"
+              }
+            ],
+            "image": "cvallance/mongo-k8s-sidecar",
+            "imagePullPolicy": "Always",
+            "name": "mongo-sidecar",
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-tbfnw",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "hostname": "mongo-2",
+        "nodeName": "gke-istio-cluster-3-default-pool-6676f3c9-9vg3",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "subdomain": "mongo",
+        "terminationGracePeriodSeconds": 10,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "mongo-persistent-storage",
+            "persistentVolumeClaim": {
+              "claimName": "mongo-persistent-storage-mongo-2"
+            }
+          },
+          {
+            "name": "default-token-tbfnw",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-tbfnw"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T16:39:16Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T16:39:55Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-02-17T16:39:16Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "docker://46ae8bed0d50fd713326d576bbcd9a7f16de19f6dba80b206caa469a118b252c",
+            "image": "mongo:latest",
+            "imageID": "docker-pullable://mongo@sha256:7fc5a3a5545f91f79c18fc07ab2f793e9761c69ce79cea857f29f17747d4cfcc",
+            "lastState": {},
+            "name": "mongo",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-17T16:39:48Z"
+              }
+            }
+          },
+          {
+            "containerID": "docker://33d6aabfa1eb8b40e3dc2b2e07b34b6ed0f41da14484e82b5f17d5e96172981a",
+            "image": "cvallance/mongo-k8s-sidecar:latest",
+            "imageID": "docker-pullable://cvallance/mongo-k8s-sidecar@sha256:cd62d32db488fbf78dfbaef020edd7fc09ee4d3fe5d50cc0579e747e8232c77f",
+            "lastState": {},
+            "name": "mongo-sidecar",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-02-17T16:39:54Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.128.0.41",
+        "phase": "Running",
+        "podIP": "10.16.2.3",
+        "qosClass": "Burstable",
+        "startTime": "2019-02-17T16:39:16Z"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

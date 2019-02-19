@@ -44,6 +44,9 @@ spec:
   - name: version-1
     labels:
       version: black
+  - name: version-2
+    labels:
+      version: yellow
 --- 
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -134,10 +137,23 @@ spec:
   - match:
     - uri:
         prefix: '/getbikeseat'      
+      headers:
+        x-Feature-Set:
+          regex: "Yellow Jacket"
     route:
     - destination:
         host: bike-seat
-        subset: version-1                                            
+        subset: version-2
+  - match:
+    - uri:
+        prefix: '/getbikeseat'      
+      headers:
+        x-Feature-Set:
+          regex: "BumbleBee"
+    route:
+    - destination:
+        host: bike-seat
+        subset: version-1
   - match:
     - uri:
         regex: '.*'      

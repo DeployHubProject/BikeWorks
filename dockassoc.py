@@ -171,6 +171,7 @@ def updatecomponent():
 @app.route('/updateapp', methods=['POST'])
 def updateapp():
 
+   feature_ready = []
    url = "https://console.deployhub.com/dmadminweb/API/components?all=y" 
    r = requests.get(url, cookies=cookies)
    data = r.json()
@@ -180,10 +181,24 @@ def updateapp():
 
    print("### Grabbing featureset.toml ###")  
  
-   headers =  {'Accept' : 'application/vnd.github.v3.raw'}
-   url = 'https://raw.githubusercontent.com/DeployHubProject/BikeWorks/master/featureset.toml'
-   r = requests.get(url, headers=headers, auth=('sbtaylor15', 'G0p!1966'))
-   data = toml.loads(r.text)
+   # checkout bikeworks project for istio config
+
+   tempdir = tempfile.mkdtemp()
+   os.chdir(tempdir)
+   print(tempdir)
+
+   p = subprocess.Popen('git clone -q git@github.com:DeployHubProject/BikeWorks.git .', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+   for line in p.stdout.readlines():
+      print(line)
+      p.wait()
+
+   with open("featureset.toml","r") as f:
+    r = f.read()
+
+#   headers =  {'Accept' : 'application/vnd.github.v3.raw'}
+#   url = 'https://raw.githubusercontent.com/DeployHubProject/BikeWorks/master/featureset.toml'
+#   r = requests.get(url, headers=headers, auth=('sbtaylor15', 'G0p!1966'))
+   data = toml.loads(r)
    pprint(data)
    print("#########")
 
@@ -208,42 +223,49 @@ def updateapp():
             compmatch.append(complist[compver])
 
       if (len(compmatch) == len(comps) and len(compmatch) > 0):
-         print("Components ready creating App Version for " + app + ";" + feature)
+         print("Components ready App Version for " + app + ";" + feature)
+         feature_ready.append(feature)
 
          url = "https://console.deployhub.com/dmadminweb/API/application/" + urllib.parse.quote(app + ";" + feature)
          r = requests.get(url, cookies=cookies)
          d = r.json()
 
          vers = d['result']['versions']
+         print("Checking")
+         pprint(vers)
 
-         if (len(vers) >= 1):
-            parent = vers[-1]['name']
-         else:
-            parent = app
+         parent = "" 
+         id = 0
+         for v in vers:
+            if (app + ";" + feature == v['name']):
+                parent = app + ";" + feature 
+            if (v['id'] > id):
+               id = v['id']    
   
-         if (";" + feature not in parent):
-            url = "https://console.deployhub.com/dmadminweb/API/new/appver/" + parent 
+         if (app + ";" + feature != parent):
+            print("Creating new app version " + app)
+            url = "https://console.deployhub.com/dmadminweb/API/new/appver/" + app 
             r = requests.get(url, cookies=cookies)
             d2 = r.json()
 
          url = "https://console.deployhub.com/dmadminweb/API/application/" + app 
          r = requests.get(url, cookies=cookies)
          d2 = r.json()
-         pprint(d2)
 
          vers = d2['result']['versions']
+         print("Updating")
+         pprint(vers)
 
          id = 0
-         if (len(vers) >= 1):
-            newver = vers[-1]['name']
-            id = vers[-1]['id']
-         else:
-            newver = app + ";" + feature
+         for v in vers:
+            if (v['id'] > id):
+               id = v['id']  
 
-         pprint(newver)
-         pprint(parent)
-         if (newver == parent):
-            print("Updating existing version " + newver)
+         for v in vers:
+            if (app + ";" + feature == v['name']):
+               id = v['id'] 
+
+         print("Updating existing version " + str(id))
 
          url = "https://console.deployhub.com/dmadminweb/UpdateSummaryData?objtype=17&id=" + str(id) + "&change_1=" + urllib.parse.quote(app + ";" + feature) 
          r = requests.get(url, cookies=cookies)
@@ -277,11 +299,12 @@ def updateapp():
    pprint(Feature2User)
    
    for feature in Feature2User:
-      users = Feature2User[feature]
-      for user in users:
-         print("Setting feature \"" + feature + "\" for user " + user)
-         url = "http://bikeworks.gotdns.com/features/" + urllib.parse.quote(feature) + "/" +  urllib.parse.quote(user)
-         r = requests.get(url)
+      if (feature in feature_ready):
+         users = Feature2User[feature]
+         for user in users:
+           print("Setting feature \"" + feature + "\" for user " + user)
+           url = "http://bikeworks.gotdns.com/features/" + urllib.parse.quote(feature) + "/" +  urllib.parse.quote(user)
+           r = requests.get(url)
 
    response_object = []
    return jsonify(response_object)
