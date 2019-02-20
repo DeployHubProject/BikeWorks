@@ -17,27 +17,6 @@ spec:
         host: bike-login
         subset: version-1
   - match:
-    - uri:
-        prefix: /features
-    route:
-    - destination:
-        host: bike-login
-        subset: version-1
-  - match:
-    - uri:
-        prefix: /users
-    route:
-    - destination:
-        host: bike-login
-        subset: version-1
-  - match:
-    - uri:
-        prefix: /users
-    route:
-    - destination:
-        host: bike-login
-        subset: version-1
-  - match:
     - headers:
         x-Feature-Set:
           regex: BumbleBee
@@ -137,13 +116,6 @@ spec:
     - destination:
         host: bike-seat
         subset: version-2
-  - match:
-    - uri:
-        regex: .*
-    route:
-    - destination:
-        host: bike-frontend
-        subset: version-1
   - match:
     - uri:
         regex: .*
