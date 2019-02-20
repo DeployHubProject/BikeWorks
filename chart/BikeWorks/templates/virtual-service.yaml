@@ -17,6 +17,13 @@ spec:
         host: bike-login
         subset: version-1
   - match:
+    - uri:
+        prefix: /users
+    route:
+    - destination:
+        host: bike-login
+        subset: version-1
+  - match:
     - headers:
         x-Feature-Set:
           regex: BumbleBee
