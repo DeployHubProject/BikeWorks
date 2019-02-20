@@ -1,0 +1,73 @@
+# Source: BikeWorks/templates/virtual-service.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: bikeinfo
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - bikeinfo-gateway
+  http:
+  - match:
+    - uri:
+        prefix: '/features'      
+    route:
+    - destination:
+        host: bike-login
+        subset: version-1
+  - match:
+    - uri:
+        prefix: '/users'      
+    route:
+    - destination:
+        host: bike-login
+        subset: version-1
+  - match:
+    - uri:
+        prefix: '/getbikeframe'      
+    route:
+    - destination:
+        host: bike-frame
+        subset: version-1
+  - match:
+    - uri:
+        prefix: '/getbikefrontwheel'      
+    route:
+    - destination:
+        host: bike-front-wheel
+        subset: version-1  
+  - match:
+    - uri:
+        prefix: '/getbikerearwheel'      
+    route:
+    - destination:
+        host: bike-rear-wheel
+        subset: version-1
+  - match:
+    - uri:
+        prefix: '/getbikeseat'      
+      headers:
+        x-Feature-Set:
+          regex: "Yellow Jacket"
+    route:
+    - destination:
+        host: bike-seat
+        subset: version-2
+  - match:
+    - uri:
+        prefix: '/getbikeseat'      
+      headers:
+        x-Feature-Set:
+          regex: "BumbleBee"
+    route:
+    - destination:
+        host: bike-seat
+        subset: version-1
+  - match:
+    - uri:
+        regex: '.*'      
+    route:
+    - destination:
+        host: bike-frontend
+        subset: version-1
