@@ -1,73 +1,172 @@
-# Source: BikeWorks/templates/virtual-service.yaml
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: bikeinfo
 spec:
-  hosts:
-    - "*"
   gateways:
-    - bikeinfo-gateway
+  - bikeinfo-gateway
+  hosts:
+  - '*'
   http:
   - match:
-    - uri:
-        prefix: '/features'      
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        prefix: /features
     route:
     - destination:
         host: bike-login
         subset: version-1
   - match:
-    - uri:
-        prefix: '/users'      
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /features
     route:
     - destination:
         host: bike-login
         subset: version-1
   - match:
-    - uri:
-        prefix: '/getbikeframe'      
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        prefix: /users
+    route:
+    - destination:
+        host: bike-login
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /users
+    route:
+    - destination:
+        host: bike-login
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        prefix: /getbikeframe
     route:
     - destination:
         host: bike-frame
         subset: version-1
   - match:
-    - uri:
-        prefix: '/getbikefrontwheel'      
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikeframe
+    route:
+    - destination:
+        host: bike-frame
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        prefix: /getbikefrontwheel
     route:
     - destination:
         host: bike-front-wheel
-        subset: version-1  
+        subset: version-1
   - match:
-    - uri:
-        prefix: '/getbikerearwheel'      
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikefrontwheel
+    route:
+    - destination:
+        host: bike-front-wheel
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        prefix: /getbikerearwheel
     route:
     - destination:
         host: bike-rear-wheel
         subset: version-1
   - match:
-    - uri:
-        prefix: '/getbikeseat'      
-      headers:
+    - headers:
         x-Feature-Set:
-          regex: "Yellow Jacket"
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikerearwheel
+    route:
+    - destination:
+        host: bike-rear-wheel
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        prefix: /getbikeseat
+    route:
+    - destination:
+        host: bike-seat
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikeseat
     route:
     - destination:
         host: bike-seat
         subset: version-2
   - match:
-    - uri:
-        prefix: '/getbikeseat'      
-      headers:
+    - headers:
         x-Feature-Set:
-          regex: "BumbleBee"
+          regex: BumbleBee
+      uri:
+        prefix: /getbikeseat
     route:
     - destination:
         host: bike-seat
         subset: version-1
   - match:
-    - uri:
-        regex: '.*'      
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikeseat
+    route:
+    - destination:
+        host: bike-seat
+        subset: version-2
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        regex: .*
     route:
     - destination:
         host: bike-frontend
         subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        regex: .*
+    route:
+    - destination:
+        host: bike-frontend
+        subset: version-1
+
