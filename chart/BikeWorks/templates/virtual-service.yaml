@@ -10,31 +10,29 @@ spec:
   - '*'
   http:
   - match:
-    - headers:
-        x-Feature-Set:
-          regex: BumbleBee
-      uri: '{"prefix": "/getbikeframe"}'
+    - uri:
+        prefix: /features
     route:
     - destination:
-        host: bike-frame
+        host: bike-login
         subset: version-1
   - match:
-    - headers:
-        x-Feature-Set:
-          regex: BumbleBee
-      uri: '{"prefix": "/getbikefrontwheel"}'
+    - uri:
+        prefix: /features
     route:
     - destination:
-        host: bike-front-wheel
+        host: bike-login
         subset: version-1
   - match:
-    - uri: '{"regex": ".*"}'
+    - uri:
+        prefix: /users
     route:
     - destination:
-        host: bike-frontend
+        host: bike-login
         subset: version-1
   - match:
-    - uri: '{"prefix": "/users"}'
+    - uri:
+        prefix: /users
     route:
     - destination:
         host: bike-login
@@ -43,7 +41,58 @@ spec:
     - headers:
         x-Feature-Set:
           regex: BumbleBee
-      uri: '{"prefix": "/getbikerearwheel"}'
+      uri:
+        prefix: /getbikeframe
+    route:
+    - destination:
+        host: bike-frame
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikeframe
+    route:
+    - destination:
+        host: bike-frame
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        prefix: /getbikefrontwheel
+    route:
+    - destination:
+        host: bike-front-wheel
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikefrontwheel
+    route:
+    - destination:
+        host: bike-front-wheel
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        prefix: /getbikerearwheel
+    route:
+    - destination:
+        host: bike-rear-wheel
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikerearwheel
     route:
     - destination:
         host: bike-rear-wheel
@@ -52,7 +101,8 @@ spec:
     - headers:
         x-Feature-Set:
           regex: BumbleBee
-      uri: '{"prefix": "/getbikeseat"}'
+      uri:
+        prefix: /getbikeseat
     route:
     - destination:
         host: bike-seat
@@ -61,48 +111,44 @@ spec:
     - headers:
         x-Feature-Set:
           regex: Yellow Jacket
-      uri: '{"prefix": "/getbikeframe"}'
-    route:
-    - destination:
-        host: bike-frame
-        subset: version-1
-  - match:
-    - headers:
-        x-Feature-Set:
-          regex: Yellow Jacket
-      uri: '{"prefix": "/getbikefrontwheel"}'
-    route:
-    - destination:
-        host: bike-front-wheel
-        subset: version-1
-  - match:
-    - uri: '{"regex": ".*"}'
-    route:
-    - destination:
-        host: bike-frontend
-        subset: version-1
-  - match:
-    - uri: '{"prefix": "/users"}'
-    route:
-    - destination:
-        host: bike-login
-        subset: version-1
-  - match:
-    - headers:
-        x-Feature-Set:
-          regex: Yellow Jacket
-      uri: '{"prefix": "/getbikerearwheel"}'
-    route:
-    - destination:
-        host: bike-rear-wheel
-        subset: version-1
-  - match:
-    - headers:
-        x-Feature-Set:
-          regex: Yellow Jacket
-      uri: '{"prefix": "/getbikeseat"}'
+      uri:
+        prefix: /getbikeseat
     route:
     - destination:
         host: bike-seat
         subset: version-2
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        prefix: /getbikeseat
+    route:
+    - destination:
+        host: bike-seat
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikeseat
+    route:
+    - destination:
+        host: bike-seat
+        subset: version-2
+  - match:
+    - uri:
+        regex: .*
+    route:
+    - destination:
+        host: bike-frontend
+        subset: version-1
+  - match:
+    - uri:
+        regex: .*
+    route:
+    - destination:
+        host: bike-frontend
+        subset: version-1
 
