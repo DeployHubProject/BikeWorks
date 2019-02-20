@@ -36,7 +36,27 @@ spec:
   - match:
     - headers:
         x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikeframe
+    route:
+    - destination:
+        host: bike-frame
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
           regex: BumbleBee
+      uri:
+        prefix: /getbikefrontwheel
+    route:
+    - destination:
+        host: bike-front-wheel
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
       uri:
         prefix: /getbikefrontwheel
     route:
@@ -56,12 +76,12 @@ spec:
   - match:
     - headers:
         x-Feature-Set:
-          regex: BumbleBee
+          regex: Yellow Jacket
       uri:
-        prefix: /getbikeseat
+        prefix: /getbikerearwheel
     route:
     - destination:
-        host: bike-seat
+        host: bike-rear-wheel
         subset: version-1
   - match:
     - headers:
@@ -73,6 +93,36 @@ spec:
     - destination:
         host: bike-seat
         subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikeseat
+    route:
+    - destination:
+        host: bike-seat
+        subset: version-2
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: BumbleBee
+      uri:
+        prefix: /getbikeseat
+    route:
+    - destination:
+        host: bike-seat
+        subset: version-1
+  - match:
+    - headers:
+        x-Feature-Set:
+          regex: Yellow Jacket
+      uri:
+        prefix: /getbikeseat
+    route:
+    - destination:
+        host: bike-seat
+        subset: version-2
   - match:
     - uri:
         regex: .*
