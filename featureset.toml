@@ -3,6 +3,12 @@
 #  - This file instructs DeployHub to deploy the docker 
 #  - containers to k8s for the component versions and then 
 #  - setup the istio routing
+
+#
+# Defining a microservice feature set to runtime equivalent
+#  - This file instructs DeployHub to deploy the docker 
+#  - containers to k8s for the component versions and then 
+#  - setup the istio routing
 #
 # [Application.Version]
 #   Component-1 = Version (feature flag)
@@ -11,9 +17,9 @@
 #   .
 #   Component-N = Version (feature flag)
 
+
 ["Feature to Users"]
-   "BumbleBee"     = ["sally","bob"]
-   "Yellow Jacket" = ["sue","joe"]
+   "BumbleBee"     = ["sally","bob", "sue","joe"]
 
 [Bike."BumbleBee"]
     bike-login       = "master"
@@ -22,19 +28,3 @@
     bike-seat        = "yellow"
     bike-front-wheel = "yellow"
     bike-rear-wheel  = "yellow"
-
-[Bike."Yellow Jacket"]
-    bike-login       = "master"
-    bike-frontend    = "master"    
-    bike-frame       = "black"
-    bike-seat        = "black"
-    bike-front-wheel = "yellow"
-    bike-rear-wheel  = "yellow" 
-
-[Bike."Green Hornet"]
-    bike-login       = "master"
-    bike-frontend    = "master"    
-    bike-frame       = "green"
-    bike-seat        = "green"
-    bike-front-wheel = "black"
-    bike-rear-wheel  = "black"  
