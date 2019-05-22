@@ -7,8 +7,6 @@ spec:
   subsets:
   - labels: {version: yellow}
     name: version-1
-  - labels: {version: black}
-    name: version-2
 
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -39,8 +37,6 @@ spec:
   subsets:
   - labels: {version: yellow}
     name: version-1
-  - labels: {version: black}
-    name: version-2
 
 ---
 apiVersion: networking.istio.io/v1alpha3
