@@ -1,0 +1,20 @@
+#
+# Defining a microservice feature set to runtime equivalent
+#  - This file instructs DeployHub to deploy the docker 
+#  - containers to k8s for the component versions and then 
+#  - setup the istio routing
+#
+# [Application.Variant.Version]
+#   Component-1 = Variant.Version
+#   Component-2 = Variant.Version
+#   .
+#   .
+#   Component-N = Variant.Version
+
+["GLOBAL/Bikework Game/Street Bike/Bike"."BumbleBee"."1.2.3.0"]
+    bike-login       = "master.a1234"
+    bike-frontend    = "master"    
+    bike-frame       = "yellow"
+    bike-seat        = "yellow"
+    bike-front-wheel = "yellow"
+    bike-rear-wheel  = "yellow"
