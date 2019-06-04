@@ -12,9 +12,9 @@
 #   Component-N = Variant.Version
 
 ["GLOBAL/Bikework Game/Street Bike/Bike"."BumbleBee"."1.2.3.0"]
-    bike-login       = ["master","a1234"]
-    bike-frontend    = ["master"]   
-    bike-frame       = ["yellow"]
-    bike-seat        = ["yellow"]
-    bike-front-wheel = ["yellow"]
-    bike-rear-wheel  = ["yellow"]
+    bike-login       = [ variant="master", version="a1234"]
+    bike-frontend    = [variant="master"]   
+    bike-frame       = [variant="yellow"]
+    bike-seat        = [variant="yellow"]
+    bike-front-wheel = [variant="yellow"]
+    bike-rear-wheel  = [variant="yellow"]
