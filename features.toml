@@ -11,6 +11,22 @@
 #   .
 #   Component-N = Variant.Version
 
+DefaultDomain = "GLOBAL/BikeWorks Game/Street Bike/Bike"
+
+[Application]
+Name    = "Street Bike"
+Variant = "BumbleBee"
+Version = "1.2.3.0"
+
+
+UpdateComponents = [
+  ['bike-login',    'master','d195bab']
+  ['bike-frontend', 'master','f076b09']
+]
+
+DeleteComponents = [
+]
+   
 ["GLOBAL/BikeWorks Game/Street Bike/Bike"."BumbleBee"."1.2.3.0"]
         ["GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-login"."master"."d195bab"]
         ["GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-frontend"."master"."f076b09"] 
