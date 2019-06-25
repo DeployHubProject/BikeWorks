@@ -12,9 +12,9 @@
 #   Component-N = Variant.Version
 
 ["GLOBAL/BikeWorks Game/Street Bike/Bike"."BumbleBee"."1.2.3.0"]
-        "GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-login"."master"."d195bab"
-        "GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-frontend"."master"."f076b09" 
-        "GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-frame"."yellow"."4ae7133"
-        "GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-seat"."yellow"."56e4166"
-        "GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-front-wheel"."yellow"."v1.5.3.9"
-        "GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-rear-wheel"."yellow"."v2.5.3.1"
+        ["GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-login"."master"."d195bab"]
+        ["GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-frontend"."master"."f076b09"] 
+        ["GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-frame"."yellow"."4ae7133"]
+        ["GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-seat"."yellow"."56e4166"]
+        ["GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-front-wheel"."yellow"."v1.5.3.9"]
+        ["GLOBAL/BikeWorks Game/Street Bike/Bike"."bike-rear-wheel"."yellow"."v2.5.3.1"]
