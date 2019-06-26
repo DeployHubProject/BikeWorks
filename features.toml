@@ -19,8 +19,7 @@ Variant = "BumbleBee"
 Version = "1.2.3.0"
 Inherit = "latest"
 
-DeleteComponents = [
-]
+DeleteComponents = []
 
 UpdateComponents = [
   ['bike-login',    'master','d195bab'],
