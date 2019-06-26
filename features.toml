@@ -23,6 +23,6 @@ DeleteComponents = [
 ]
 
 UpdateComponents = [
-  ['bike-login',    'master','d195bab']
+  ['bike-login',    'master','d195bab'],
   ['bike-frontend', 'master','f076b09']
 ]
